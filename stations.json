@@ -2,11 +2,13 @@
   {
     "name": "VETERANSRADIO.CA LIVE!! STATION",
     "tag": "STREAM",
-    ...
+    "desc": "Live broadcast stream",
+    "url": "https://play.radioking.io/jimmy-corpslive"
   },
   {
     "name": "VETERANSRADIO.CA MAIN STATION",
     "tag": "STREAM",
-    ...
+    "desc": "Main station stream",
+    "url": "https://ice3.securenetsystems.net/VRAD1"
   }
 ]
