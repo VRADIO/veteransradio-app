@@ -75,8 +75,12 @@ audio.addEventListener("stalled", () => setStatus("Stalled."));
 audio.addEventListener("error", () => setStatus("Audio error. Stream blocked or bad URL."));
 
 function card(st){
-  const el = document.createElement("div");
-  el.className = "card";
+const el = document.createElement("div");
+el.className = "card";
+
+if (current && current.url === st.url) {
+  el.classList.add("activeCard");
+}
 
   const left = document.createElement("div");
   left.innerHTML = `
