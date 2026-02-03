@@ -214,3 +214,31 @@ body{
   object-fit: cover;
   border: 1px solid rgba(255,255,255,0.25);
 }
+/* Neon green text override */
+body,
+h1, h2, h3, h4,
+.brandName,
+.brandSub,
+.playerLabel,
+.playerTitle,
+.playerStatus,
+.track,
+.stationsHint,
+.cardTitle,
+.cardSub,
+.cardUrl,
+.tinyHint,
+.mono,
+.volLabel,
+button {
+  color: #39ff14 !important;
+}
+
+/* keep buttons readable */
+button,
+.install,
+.btn,
+.secondary,
+.danger {
+  text-shadow: 0 0 6px rgba(57,255,20,0.6);
+}
