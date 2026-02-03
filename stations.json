@@ -10,6 +10,7 @@
     "name": "VETERANSRADIO.CA MAIN STATION",
     "tag": "STREAM",
     "desc": "Main station stream",
-    "url": "https://ice3.securenetsystems.net/VRAD1"
+    "url": "https://ice3.securenetsystems.net/VRAD1",
+    "nowPlayingUrl": "https://streamdb6web.securenetsystems.net/player_status_update/VRAD1.xml"
   }
 ]
