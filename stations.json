@@ -4,7 +4,7 @@
     "tag": "STREAM",
     "desc": "Live broadcast stream",
     "url": "https://play.radioking.io/jimmy-corpslive",
-    "nowPlayingUrl": ""
+    "nowPlayingUrl": "PUT_YOUR_RADIOKING_JSON_URL_HERE"
   },
   {
     "name": "VETERANSRADIO.CA MAIN STATION",
