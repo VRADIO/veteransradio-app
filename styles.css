@@ -242,3 +242,27 @@ button,
 .danger {
   text-shadow: 0 0 6px rgba(57,255,20,0.6);
 }
+
+/* Active streaming station with pulse */
+@keyframes neonPulse {
+  0% {
+    box-shadow: 0 0 6px rgba(57,255,20,0.35),
+                0 0 14px rgba(57,255,20,0.45);
+    border-color: rgba(57,255,20,0.55);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(57,255,20,0.75),
+                0 0 26px rgba(57,255,20,0.90);
+    border-color: rgba(57,255,20,0.95);
+  }
+  100% {
+    box-shadow: 0 0 6px rgba(57,255,20,0.35),
+                0 0 14px rgba(57,255,20,0.45);
+    border-color: rgba(57,255,20,0.55);
+  }
+}
+
+.activeCard {
+  border: 2px solid rgba(57,255,20,0.75) !important;
+  animation: neonPulse 1.8s ease-in-out infinite;
+}
