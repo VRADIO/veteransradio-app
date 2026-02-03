@@ -51,9 +51,11 @@ installBtn.addEventListener("click", async () => {
 
   try {
     const choice = await deferredPrompt.userChoice;
-    setStatus(choice && choice.outcome === "accepted"
-      ? "Installing..."
-      : "Install cancelled.");
+    setStatus(
+      choice && choice.outcome === "accepted"
+        ? "Installing..."
+        : "Install cancelled."
+    );
   } catch {
     setStatus("Install failed.");
   }
@@ -90,12 +92,12 @@ async function tune(st){
   audio.volume = Number(volume.value);
 
   try{
- await audio.play();
-isPlaying = true;
+    await audio.play();
+    isPlaying = true;
 
-setStatus("Ready: " + st.name);
-setButtons(true, true);
-render();
+    setStatus("Ready: " + st.name);
+    setButtons(true, true);
+    render();
 
   }catch(e){
     console.error(e);
@@ -129,12 +131,12 @@ audio.addEventListener("stalled", () => setStatus("Stalled."));
 audio.addEventListener("error", () => setStatus("Audio error. Stream blocked or bad URL."));
 
 function card(st){
-const el = document.createElement("div");
-el.className = "card";
+  const el = document.createElement("div");
+  el.className = "card";
 
-if (current && current.url === st.url) {
-  el.classList.add("activeCard");
-}
+  if (current && current.url === st.url) {
+    el.classList.add("activeCard");
+  }
 
   const left = document.createElement("div");
   left.innerHTML = `
@@ -178,54 +180,6 @@ loadStations().catch((e) => {
   console.error(e);
   setStatus("Failed to load stations.json");
 });
-
-function isStandaloneMode() {
-  return window.matchMedia("(display-mode: standalone)").matches;
-}
-
-window.addEventListener("beforeinstallprompt", (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.disabled = false;
-  setStatus("Install ready.");
-});
-
-window.addEventListener("appinstalled", () => {
-  deferredPrompt = null;
-  installBtn.disabled = true;
-  setStatus("Installed.");
-});
-
-installBtn.addEventListener("click", async () => {
-  setStatus("Install button pressed.");
-
-  if (isStandaloneMode()) {
-    setStatus("Already installed.");
-    return;
-  }
-
-  if (!deferredPrompt) {
-    setStatus("Install prompt unavailable. Use Chrome menu ⋮ → Install app.");
-    return;
-  }
-
-  deferredPrompt.prompt();
-
-  try {
-    const choice = await deferredPrompt.userChoice;
-    setStatus(
-      choice && choice.outcome === "accepted"
-        ? "Installing..."
-        : "Install cancelled."
-    );
-  } catch {
-    setStatus("Install failed.");
-  }
-
-  deferredPrompt = null;
-  installBtn.disabled = true;
-});
-
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./sw.js").catch(() => {});
