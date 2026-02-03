@@ -11,6 +11,6 @@
     "tag": "STREAM",
     "desc": "Main station stream",
     "url": "https://ice3.securenetsystems.net/VRAD1",
-    "nowPlayingUrl": "https://streamdb6web.securenetsystems.net/player_status_update/VRAD1.xml"
+    "nowPlayingUrl": "https://streamdb4web.securenetsystems.net/player_status_update/VRAD1.xml"
   }
 ]

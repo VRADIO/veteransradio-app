@@ -186,18 +186,25 @@ function startNowPlaying(st){
   const pull = async () => {
     try {
       const res = await fetch(st.nowPlayingUrl, { cache: "no-store" });
-      const data = await res.json();
+      const text = (await res.text()).trim();
 
-      // RadioKing can return an object OR an array.
-      const song = Array.isArray(data) ? data[0] : data;
+      let artist = "";
+      let title = "";
 
-      if (!song) {
-        trackEl.textContent = "Now Playing unavailable";
-        return;
+      if (text.startsWith("<")) {
+        // XML (SecureNet)
+        const doc = new DOMParser().parseFromString(text, "text/xml");
+        const a = doc.getElementsByTagName("artist")[0];
+        const t = doc.getElementsByTagName("title")[0];
+        artist = a ? (a.textContent || "").trim() : "";
+        title  = t ? (t.textContent || "").trim() : "";
+      } else {
+        // JSON (RadioKing)
+        const data = JSON.parse(text);
+        const song = Array.isArray(data) ? data[0] : data;
+        artist = song && song.artist ? String(song.artist).trim() : "";
+        title  = song && song.title ? String(song.title).trim() : "";
       }
-
-      const artist = (song.artist || "").trim();
-      const title = (song.title || "").trim();
 
       trackEl.textContent =
         artist && title ? artist + " - " + title : (title || "Now Playing unavailable");
@@ -237,4 +244,3 @@ loadStations().catch((e) => {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./sw.js").catch(() => {});
 }
-
