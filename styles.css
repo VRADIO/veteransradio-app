@@ -1,0 +1,212 @@
+:root { color-scheme: dark; }
+
+* { box-sizing: border-box; }
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family: system-ui, Segoe UI, Arial, sans-serif;
+  color:#e9f0ff;
+  background:#05070f;
+}
+
+.bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(1200px 600px at 50% 0%, rgba(255,255,255,0.10), rgba(0,0,0,0.0)),
+    linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.85)),
+    url("./background.png");
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.2) contrast(1.05);
+  z-index:-1;
+}
+
+/* If you do not have background.png yet, the page still works.
+   You can add any image named background.png later. */
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 18px;
+  gap:12px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.badge{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background: rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.18);
+  display:grid;
+  place-items:center;
+  font-weight:900;
+}
+
+.brandName{ font-weight:900; letter-spacing:0.2px; }
+.brandSub{ opacity:0.75; font-size:12px; margin-top:2px; }
+
+.install{
+  border:0;
+  border-radius:12px;
+  padding:10px 14px;
+  font-weight:900;
+  background:#2a65ff;
+  color:white;
+  cursor:pointer;
+}
+.install:disabled{ opacity:0.5; cursor:not-allowed; }
+
+.wrap{
+  width:min(1100px, 94vw);
+  margin: 0 auto;
+  padding: 0 0 20px;
+}
+
+.player{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  padding:18px;
+  border-radius:18px;
+  background: rgba(10,14,26,0.78);
+  border:1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  margin-bottom:16px;
+}
+
+.playerLabel{
+  font-size:11px;
+  opacity:0.75;
+  letter-spacing:0.6px;
+}
+
+.smallGap{ margin-top:10px; }
+
+.playerTitle{
+  font-size:18px;
+  font-weight:900;
+  margin-top:4px;
+}
+
+.playerStatus{
+  margin-top:6px;
+  font-size:12px;
+  opacity:0.75;
+}
+
+.track{
+  margin-top:4px;
+  font-size:13px;
+  opacity:0.85;
+}
+
+.controls{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+
+.btn{
+  border:0;
+  border-radius:14px;
+  padding:10px 14px;
+  font-weight:900;
+  cursor:pointer;
+  background:#2a65ff;
+  color:white;
+}
+.btn:disabled{ opacity:0.55; cursor:not-allowed; }
+.secondary{ background: rgba(255,255,255,0.10); }
+.danger{ background:#ff3b5c; }
+
+.playerRight{
+  min-width:220px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:center;
+  gap:8px;
+}
+
+.volLabel{ font-size:12px; opacity:0.8; }
+.vol{ width:220px; }
+
+.stationsHint{
+  font-size:12px;
+  opacity:0.85;
+  margin: 8px 0 10px;
+  font-weight:900;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap:12px;
+}
+
+.card{
+  padding:14px;
+  border-radius:16px;
+  background: rgba(10,14,26,0.78);
+  border:1px solid rgba(255,255,255,0.14);
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+}
+
+.cardTitle{
+  font-weight:900;
+  color:#7dff6a;
+  font-size:13px;
+  letter-spacing:0.2px;
+}
+
+.cardSub{
+  margin-top:4px;
+  font-size:12px;
+  opacity:0.85;
+}
+
+.cardUrl{
+  margin-top:4px;
+  font-size:11px;
+  opacity:0.65;
+  word-break: break-all;
+}
+
+.pill{
+  font-size:11px;
+  font-weight:900;
+  padding:6px 10px;
+  border-radius:999px;
+  background: rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.18);
+  opacity:0.9;
+}
+
+.tinyHint{
+  margin-top:10px;
+  font-size:12px;
+  opacity:0.75;
+}
+
+.mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (max-width: 800px){
+  .grid{ grid-template-columns: 1fr; }
+  .player{ flex-direction:column; }
+  .playerRight{ align-items:flex-start; }
+  .vol{ width:100%; }
+}
