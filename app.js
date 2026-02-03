@@ -98,6 +98,8 @@ async function tune(st){
     await audio.play();
     isPlaying = true;
 
+    startNowPlaying(st);
+
     setStatus("Ready: " + st.name);
     setButtons(true, true);
     render();
@@ -111,14 +113,20 @@ async function tune(st){
 
 function pause(){
   audio.pause();
+  isPlaying = false;
+  stopNowPlaying();
   setStatus("Paused.");
   setButtons(false, true);
+  render();
 }
 
 function stop(){
   hardStop();
+  isPlaying = false;
+  stopNowPlaying();
   setStatus("Stopped.");
   setButtons(false, false);
+  render();
 }
 
 volume.addEventListener("input", () => {
@@ -137,7 +145,7 @@ function card(st){
   const el = document.createElement("div");
   el.className = "card";
 
-  if (current && current.url === st.url) {
+  if (isPlaying && current && current.url === st.url) {
     el.classList.add("activeCard");
   }
 
@@ -165,6 +173,48 @@ function card(st){
 
 let stations = [];
 
+let nowPlayingTimer = null;
+
+function startNowPlaying(st){
+  stopNowPlaying();
+
+  if (!st || !st.nowPlayingUrl) {
+    trackEl.textContent = "Now Playing unavailable";
+    return;
+  }
+
+  const pull = async () => {
+    try {
+      const res = await fetch(st.nowPlayingUrl, { cache: "no-store" });
+      const data = await res.json();
+
+      // RadioKing can return an object OR an array.
+      const song = Array.isArray(data) ? data[0] : data;
+
+      if (!song) {
+        trackEl.textContent = "Now Playing unavailable";
+        return;
+      }
+
+      const artist = (song.artist || "").trim();
+      const title = (song.title || "").trim();
+
+      trackEl.textContent =
+        artist && title ? artist + " - " + title : (title || "Now Playing unavailable");
+    } catch (e) {
+      trackEl.textContent = "Now Playing unavailable";
+    }
+  };
+
+  pull();
+  nowPlayingTimer = setInterval(pull, 15000);
+}
+
+function stopNowPlaying(){
+  if (nowPlayingTimer) clearInterval(nowPlayingTimer);
+  nowPlayingTimer = null;
+}
+
 function render(){
   grid.innerHTML = "";
   stations.forEach((st) => grid.appendChild(card(st)));
@@ -187,3 +237,4 @@ loadStations().catch((e) => {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./sw.js").catch(() => {});
 }
+
