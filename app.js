@@ -10,6 +10,9 @@ const stopBtn = $("stopBtn");
 const volume = $("volume");
 const installBtn = $("installBtn");
 
+volume.value = "0.50";
+audio.volume = 0.50;
+
 installBtn.disabled = false;
 
 let current = null;
