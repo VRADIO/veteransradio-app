@@ -10,6 +10,8 @@ const stopBtn = $("stopBtn");
 const volume = $("volume");
 const installBtn = $("installBtn");
 
+installBtn.disabled = false;
+
 let current = null;
 let deferredPrompt = null;
 let isPlaying = false;
