@@ -130,20 +130,54 @@ loadStations().catch((e) => {
   setStatus("Failed to load stations.json");
 });
 
-/* Install button (PWA) */
+function isStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches;
+}
+
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   deferredPrompt = e;
   installBtn.disabled = false;
+  setStatus("Install ready.");
+});
+
+window.addEventListener("appinstalled", () => {
+  deferredPrompt = null;
+  installBtn.disabled = true;
+  setStatus("Installed.");
 });
 
 installBtn.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
-  installBtn.disabled = true;
+  setStatus("Install button pressed.");
+
+  if (isStandaloneMode()) {
+    setStatus("Already installed.");
+    return;
+  }
+
+  if (!deferredPrompt) {
+    setStatus("Install prompt unavailable. Use Chrome menu ⋮ → Install app.");
+    return;
+  }
+
   deferredPrompt.prompt();
-  try { await deferredPrompt.userChoice; } catch {}
+
+  try {
+    const choice = await deferredPrompt.userChoice;
+    setStatus(
+      choice && choice.outcome === "accepted"
+        ? "Installing..."
+        : "Install cancelled."
+    );
+  } catch {
+    setStatus("Install failed.");
+  }
+
   deferredPrompt = null;
+  installBtn.disabled = true;
 });
+
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./sw.js").catch(() => {});
 }
