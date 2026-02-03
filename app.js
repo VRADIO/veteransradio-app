@@ -12,6 +12,8 @@ const installBtn = $("installBtn");
 
 let current = null;
 let deferredPrompt = null;
+let isPlaying = false;
+
 
 function setStatus(t){ statusEl.textContent = t || ""; }
 function setNow(t){ nowTitle.textContent = t || "Nothing"; }
@@ -39,10 +41,13 @@ async function tune(st){
   audio.volume = Number(volume.value);
 
   try{
-    await audio.play();
-    setStatus("Ready: " + st.name);
-    setButtons(true, true);
-    render();
+ await audio.play();
+isPlaying = true;
+
+setStatus("Ready: " + st.name);
+setButtons(true, true);
+render();
+
   }catch(e){
     console.error(e);
     setStatus("Play failed. Browser blocked it or stream rejected it.");
