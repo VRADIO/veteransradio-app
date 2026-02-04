@@ -1,5 +1,4 @@
 const $ = (id) => document.getElementById(id);
-
 const audio = $("audio");
 const grid = $("stationGrid");
 const nowTitle = $("nowTitle");
@@ -8,16 +7,93 @@ const trackEl = $("track");
 const pauseBtn = $("pauseBtn");
 const stopBtn = $("stopBtn");
 const volume = $("volume");
+const muteBtn = $("muteBtn");
 const installBtn = $("installBtn");
 
-volume.value = "0.50";
-audio.volume = 0.50;
+volume.value = "0.30";
+audio.volume = 0.30;
+
+let lastVolume = Number(volume.value) || 0.3;
+
+function syncMuteUI(){
+  if (!muteBtn) return;
+  muteBtn.textContent = (audio.muted || audio.volume === 0) ? "UNMUTE" : "MUTE";
+}
+
+syncMuteUI();
+
+if (muteBtn) {
+  muteBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation(); // IMPORTANT: stops parent click handlers
+
+    console.log("MUTE CLICK"); // you should see this in console
+
+    if (!audio.muted && audio.volume > 0) {
+      lastVolume = audio.volume;
+      audio.muted = true;
+      audio.volume = 0;
+      volume.value = "0";
+      setStatus("Muted.");
+    } else {
+      audio.muted = false;
+      const v = lastVolume > 0 ? lastVolume : 0.3;
+      audio.volume = v;
+      volume.value = String(v);
+      setStatus("Unmuted.");
+    }
+
+    syncMuteUI();
+  });
+}
+
+
+// --- Mute button ---
+let lastVolume = Number(volume.value || 0.5);
+
+function syncMuteUI(){
+  if (!muteBtn) return;
+  muteBtn.textContent = audio.muted ? "UNMUTE" : "MUTE";
+}
+
+if (muteBtn) {
+  muteBtn.addEventListener("click", () => {
+    // If muting, remember last non-zero volume
+    if (!audio.muted) {
+      const v = Number(volume.value);
+      if (v > 0) lastVolume = v;
+      audio.muted = true;
+      audio.volume = 0;        // forces silence everywhere
+      volume.value = "0";
+    } else {
+      audio.muted = false;
+      const restore = (lastVolume && lastVolume > 0) ? lastVolume : 0.5;
+      audio.volume = restore;
+      volume.value = String(restore);
+    }
+    syncMuteUI();
+  });
+
+  // Set initial label
+  syncMuteUI();
+}
+// --- end mute ---
+
 
 installBtn.disabled = false;
 
 let current = null;
 let deferredPrompt = null;
 let isPlaying = false;
+
+let lastVolume = Number(volume.value) || 0.30;
+
+function syncMuteUI(){
+  if (!muteBtn) return;
+  const isMuted = audio.muted || Number(audio.volume) === 0;
+  muteBtn.textContent = isMuted ? "UNMUTE" : "MUTE";
+}
+
 
 // --- Install button (PWA) ---
 function isStandaloneMode() {
@@ -130,8 +206,38 @@ function stop(){
 }
 
 volume.addEventListener("input", () => {
-  audio.volume = Number(volume.value);
+  const v = Number(volume.value);
+  audio.volume = v;
+
+  if (v > 0) {
+    lastVolume = v;
+    audio.muted = false;
+  } else {
+    audio.muted = true;
+  }
+
+  syncMuteUI();
 });
+
+if (muteBtn) {
+  muteBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // ...
+  });
+}
+
+  // If user moves slider up, unmute automatically
+  if (v > 0 && audio.muted) audio.muted = false;
+
+  audio.volume = v;
+
+  // Remember last non-zero volume
+  if (v > 0) lastVolume = v;
+
+  syncMuteUI();
+});
+
 
 pauseBtn.addEventListener("click", pause);
 stopBtn.addEventListener("click", stop);
