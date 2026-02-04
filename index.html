@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VeteransRadio.ca Player</title>
 
-<link rel="manifest" href="./manifest.webmanifest">
+  <link rel="manifest" href="./manifest.webmanifest">
   <meta name="theme-color" content="#0b0f1a">
 
   <link rel="stylesheet" href="./styles.css" />
@@ -15,7 +15,7 @@
 
   <header class="topbar">
     <div class="brand">
-<img src="./wolf.png" class="badgeImg">
+      <img src="./wolf.png" class="badgeImg">
       <div class="brandText">
         <div class="brandName">VeteransRadio.ca</div>
         <div class="brandSub">Tap a station to tune in</div>
@@ -52,6 +52,32 @@
       <div id="stationGrid" class="grid"></div>
       <div class="tinyHint">To add stations, edit <span class="mono">stations.json</span></div>
     </section>
+
+    <!-- KICK STREAM PANEL -->
+    <section class="kickPanel">
+      <div class="kickHead">
+        <div class="kickTitle">KICK STREAM</div>
+        <a class="kickLink" href="https://kick.com/veteransradio" target="_blank" rel="noopener">
+          OPEN IN KICK
+        </a>
+      </div>
+
+      <div class="kickFrameWrap">
+        <iframe
+          class="kickFrame"
+          src="https://kick.com/veteransradio"
+          title="VeteransRadio Kick Stream"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          allow="autoplay; fullscreen; picture-in-picture"
+        ></iframe>
+      </div>
+
+      <div class="kickFallback">
+        If the stream area stays blank, Kick may block embed. Use the button above.
+      </div>
+    </section>
+    <!-- END KICK STREAM PANEL -->
 
     <audio id="audio" playsinline></audio>
   </main>

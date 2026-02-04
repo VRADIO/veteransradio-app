@@ -275,3 +275,56 @@ button,
   border: 2px solid rgba(57,255,20,0.75) !important;
   animation: neonPulse 1.8s ease-in-out infinite;
 }
+
+.kickPanel{
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(10,14,26,0.78);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+.kickHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.kickTitle{
+  font-weight: 900;
+  letter-spacing: 0.6px;
+}
+
+.kickLink{
+  display:inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 900;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.35);
+}
+
+.kickFrameWrap{
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.kickFrame{
+  width: 100%;
+  height: min(52vh, 520px);
+  border: 0;
+  display:block;
+  background: rgba(0,0,0,0.35);
+}
+
+.kickFallback{
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.8;
+}
