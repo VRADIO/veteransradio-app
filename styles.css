@@ -328,3 +328,9 @@ button,
 .tinyHint {
   display: none;
 }
+
+/* Hide green Kick helper text */
+iframe + div,
+.kickContainer p {
+  display: none !important;
+}
