@@ -182,10 +182,7 @@ body{
 }
 
 .cardUrl{
-  margin-top:4px;
-  font-size:11px;
-  opacity:0.65;
-  word-break: break-all;
+  display: none;
 }
 
 .pill{
